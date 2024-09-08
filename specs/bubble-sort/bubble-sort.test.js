@@ -12,12 +12,34 @@
 
 function bubbleSort(nums) {
   // code goes here
+
+  let swapped = true;
+
+  while (swapped) {
+    swapped = false;
+    
+    for (let index = 0; index < nums.length; index++) {
+      const number = nums[index];
+      const nextNumber = nums[index + 1];
+    
+      if (!nextNumber) continue;
+
+      if (number > nextNumber) {
+        nums[index + 1] = number;
+        nums[index] = nextNumber;
+        swapped = true;
+      }
+    }
+  }
+
+  return nums
 }
 
 // unit tests
 // do not modify the below code
-test.skip("bubble sort", function () {
+test("bubble sort", function () {
   const nums = [10, 5, 3, 8, 2, 6, 4, 7, 9, 1];
   const sortedNums = bubbleSort(nums);
+  console.log("🚀 ~ sortedNums:", sortedNums)
   expect(sortedNums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 });
