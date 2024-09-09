@@ -8,12 +8,21 @@
            nestedAdd([[[2]], 1, [1, 3]]) = 7
  
  */
-
 function nestedAdd(array) {
-  // write code here
+  const item = array.shift()
+  
+  if (!item) {
+    return 0;
+  }
+
+  if (Array.isArray(item)) {
+    return nestedAdd([...item, ...array]);
+  }
+
+  return item + nestedAdd(array);
 }
 
-test.skip("nested arrays addition", () => {
+test("nested arrays addition", () => {
   expect(nestedAdd([1, 2, 3])).toEqual(6);
   expect(nestedAdd([1, [2], 3])).toEqual(6);
   expect(nestedAdd([[[[[[[[[5]]]]]]]]])).toEqual(5);
