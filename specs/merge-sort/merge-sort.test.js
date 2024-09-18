@@ -9,38 +9,15 @@
 const merge = (left = [], right = []) => {
 	const sorted = [];
 
-	let index2 = 0;
-	let index1 = 0;
-
-	for (index1; index1 < left.length; index1++) {
-		const numberOne = left[index1];
-
-		for (index2; index2 < right.length; index2++) {
-			const element2 = right[index2];
-
-			if (numberOne < element2) {
-				sorted.push(numberOne);
-				break;
-			}
-
-			sorted.push(element2);
-		}
-
-		if (!sorted.includes(numberOne)) {
-			sorted.push(numberOne);
+	while (left.length && right.length) {
+		if (right[0] >= left[0]) {
+			sorted.push(left.shift());
+		} else {
+			sorted.push(right.shift());
 		}
 	}
 
-	if (right.length !== index2) {
-		sorted.push(...right.slice(index2));
-	}
-
-	if (left.length !== index1) {
-		sorted.push(...left.slice(index1));
-	}
-
-	console.log("[LOG] ~ sorted:", sorted)
-	return sorted;
+	return sorted.concat(left, right);
 };
 
 const mergeSort = (nums) => {
