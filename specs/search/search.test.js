@@ -4,7 +4,7 @@
 // it's up to you what to return if the object isn't found (we're not testing that)
 
 function linearSearch(id, array) {
-	return array.find(el => el.id === id)
+	return array.find((el) => el.id === id);
 }
 
 function recursiveBinarySearch(id, array) {
@@ -24,33 +24,25 @@ function recursiveBinarySearch(id, array) {
 
 function binarySearch(id, array) {
 	// code goes here
-
-	let isSearching = true;
-	let result;
 	let startIndex = 0;
-
 	let endIndex = array.length;
 
-	while (isSearching) {
-		const slicedArray = array.slice(startIndex, endIndex);
-		const middleEl = slicedArray[Math.floor(slicedArray.length / 2)];
-
-		const middleSizeInMain = array.findIndex((el) => el.id === middleEl.id);
+	while (startIndex <= endIndex) {
+		const currentIndex = Math.floor((startIndex + endIndex) / 2);
+		const middleEl = array[currentIndex];
 
 		if (middleEl.id === id) {
-			isSearching = false;
-			result = middleEl;
-			return result;
+			return middleEl;
 		}
 
-		const middleIsBigger = middleEl.id > id;
-
-		if (middleIsBigger) {
-			endIndex = middleSizeInMain;
+		if (middleEl.id > id) {
+			endIndex = currentIndex - 1;
 		} else {
-			startIndex = middleSizeInMain;
+			startIndex = currentIndex + 1;
 		}
 	}
+
+	return null;
 }
 
 // unit tests
