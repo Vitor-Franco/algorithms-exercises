@@ -17,51 +17,101 @@ right - Node/object - the right node which itself may be another tree
 */
 
 class Tree {
-  // code goes here
+	// code goes here
+
+	constructor() {
+		this.root = null;
+	}
+
+	toObject() {
+		return this.root;
+	}
+
+	add(num) {
+		if (!this.root) {
+			const node = new Node(num);
+			this.root = node;
+			return;
+		}
+
+		// console.log("this.root", this.root);
+
+		let node = this.root;
+
+		do {
+			if (node.value === num) {
+				return node;
+			}
+
+			const isLeft = num <= node.value;
+
+			if (isLeft) {
+				if (node.left) {
+					node = node.left;
+				} else {
+					node.left = new Node(num);
+					break;
+				}
+			} else {
+				if (node.right) {
+					node = node.right;
+				} else {
+					node.right = new Node(num);
+					break;
+				}
+			}
+		} while (true);
+	}
 }
 
-// you might consider using a Node class too
-// class Node {
-//   // code maybe goes here
-// }
+class Node {
+	// code maybe goes here
+	constructor(value) {
+		this.value = value;
+		this.left = null;
+		this.right = null;
+	}
+}
 
 // unit tests
 // do not modify the below code
-describe.skip("Binary Search Tree", function () {
-  it("creates a correct tree", () => {
-    const nums = [3, 7, 4, 6, 5, 1, 10, 2, 9, 8];
-    const tree = new Tree();
-    nums.map((num) => tree.add(num));
-    const objs = tree.toObject();
-    // render(objs, nums);
+describe("Binary Search Tree", () => {
+	it("creates a correct tree", () => {
+		const nums = [3, 7, 4, 6, 5, 1, 10, 2, 9, 8];
+		const tree = new Tree();
+		nums.map((num) => tree.add(num));
+		console.log("[LOG] ~ nums:", nums);
+		console.log("[LOG] ~ tree:", tree);
+		const objs = tree.toObject();
+		// render(objs, nums);
 
-    expect(objs.value).toEqual(3);
+		expect(objs.value).toEqual(3);
 
-    expect(objs.left.value).toEqual(1);
-    expect(objs.left.left).toBeNull();
+		expect(objs.left.value).toEqual(1);
+		expect(objs.left.left).toBeNull();
 
-    expect(objs.left.right.value).toEqual(2);
-    expect(objs.left.right.left).toBeNull();
-    expect(objs.left.right.right).toBeNull();
+		expect(objs.left.right.value).toEqual(2);
+		expect(objs.left.right.left).toBeNull();
+		expect(objs.left.right.right).toBeNull();
 
-    expect(objs.right.value).toEqual(7);
+		expect(objs.right.value).toEqual(7);
 
-    expect(objs.right.left.value).toEqual(4);
-    expect(objs.right.left.left).toBeNull();
+		expect(objs.right.left.value).toEqual(4);
+		expect(objs.right.left.left).toBeNull();
 
-    expect(objs.right.left.right.value).toEqual(6);
-    expect(objs.right.left.right.left.value).toEqual(5);
-    expect(objs.right.left.right.left.right).toBeNull();
-    expect(objs.right.left.right.left.left).toBeNull();
+		expect(objs.right.left.right.value).toEqual(6);
+		expect(objs.right.left.right.left.value).toEqual(5);
+		expect(objs.right.left.right.left.right).toBeNull();
+		expect(objs.right.left.right.left.left).toBeNull();
 
-    expect(objs.right.right.value).toEqual(10);
-    expect(objs.right.right.right).toBeNull();
+		expect(objs.right.right.value).toEqual(10);
+		expect(objs.right.right.right).toBeNull();
 
-    expect(objs.right.right.left.value).toEqual(9);
-    expect(objs.right.right.left.right).toBeNull();
+		expect(objs.right.right.left.value).toEqual(9);
+		expect(objs.right.right.left.right).toBeNull();
 
-    expect(objs.right.right.left.left.value).toEqual(8);
-    expect(objs.right.right.left.left.right).toBeNull();
-    expect(objs.right.right.left.left.left).toBeNull();
-  });
+		expect(objs.right.right.left.left.value).toEqual(8);
+		expect(objs.right.right.left.left.right).toBeNull();
+		expect(objs.right.right.left.left.left).toBeNull();
+	});
 });
